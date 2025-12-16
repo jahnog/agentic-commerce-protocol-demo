@@ -8,9 +8,10 @@
     "start": "next start",
     "lint": "next lint",
     "db:generate": "drizzle-kit generate",
-    "db:migrate": "drizzle-kit migrate",
+    "db:migrate": "tsx lib/db/migrate.ts",
     "db:push": "drizzle-kit push",
-    "db:studio": "drizzle-kit studio"
+    "db:studio": "drizzle-kit studio",
+    "db:drop": "drizzle-kit drop"
   },
   "dependencies": {
     "@ai-sdk/anthropic": "^1.2.11",
@@ -34,6 +35,7 @@
     "@radix-ui/react-slot": "^1.2.0",
     "@radix-ui/react-tooltip": "^1.2.3",
     "@tanstack/react-query": "^5.74.4",
+    "@types/ws": "^8.18.1",
     "@vercel/analytics": "^1.5.0",
     "ai": "^4.3.16",
     "class-variance-authority": "^0.7.1",
@@ -55,6 +57,7 @@
     "sonner": "^2.0.3",
     "tailwind-merge": "^3.2.0",
     "tailwindcss-animate": "^1.0.7",
+    "ws": "^8.18.3",
     "zod": "^3.24.2"
   },
   "devDependencies": {
@@ -71,6 +74,7 @@
     "eslint-config-next": "15.3.0",
     "pg-pool": "^3.8.0",
     "tailwindcss": "^4.1.4",
+    "tsx": "^4.21.0",
     "typescript": "^5.8.3"
   }
 }

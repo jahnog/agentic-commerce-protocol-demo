@@ -1,5 +1,5 @@
 {
-  "id": "70cfd958-05b3-4673-81b2-be05beb0a237",
+  "id": "7d980715-b15b-404b-b425-be35f774cbff",
   "prevId": "00000000-0000-0000-0000-000000000000",
   "version": "7",
   "dialect": "postgresql",
@@ -12,6 +12,12 @@
           "name": "id",
           "type": "text",
           "primaryKey": true,
+          "notNull": true
+        },
+        "user_id": {
+          "name": "user_id",
+          "type": "text",
+          "primaryKey": false,
           "notNull": true
         },
         "title": {
@@ -60,15 +66,15 @@
           "primaryKey": false,
           "notNull": true
         },
-        "content": {
-          "name": "content",
+        "role": {
+          "name": "role",
           "type": "text",
           "primaryKey": false,
           "notNull": true
         },
-        "role": {
-          "name": "role",
-          "type": "text",
+        "parts": {
+          "name": "parts",
+          "type": "json",
           "primaryKey": false,
           "notNull": true
         },
