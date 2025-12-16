@@ -44,7 +44,7 @@ docker-compose down -v
 docker-compose up -d --wait
 
 # Start all services
-concurrently -n MCP,MERCHANT,PSP -c cyan,green,yellow \
+npx concurrently -n MCP,MERCHANT,PSP -c cyan,green,yellow \
     "cd demo/mcp-ui-server && npm run dev" \
     "cd demo/merchant && npm run seed && npm run dev" \
     "cd demo/psp && npm run dev" &
