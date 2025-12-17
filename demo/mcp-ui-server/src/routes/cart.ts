@@ -12,6 +12,11 @@ export function setupCartRoutes(
 ) {
   // Add item to cart
   app.post('/cart/add', async (req, res) => {
+    console.log(`[INFO] POST ${req.originalUrl}`);
+    if (req.body && Object.keys(req.body).length > 0) {
+      console.log(`[INFO] Request body:`, JSON.stringify(req.body, null, 2));
+    }
+
     const { productId } = req.body;
 
     if (!productId) {
@@ -39,6 +44,11 @@ export function setupCartRoutes(
 
   // Remove item from cart
   app.post('/cart/remove', async (req, res) => {
+    console.log(`[INFO] POST ${req.originalUrl}`);
+    if (req.body && Object.keys(req.body).length > 0) {
+      console.log(`[INFO] Request body:`, JSON.stringify(req.body, null, 2));
+    }
+
     const { productId } = req.body;
 
     if (!productId) {
@@ -86,6 +96,8 @@ export function setupCartRoutes(
 
   // Get cart contents
   app.get('/cart', (req, res) => {
+    console.log(`[INFO] GET ${req.originalUrl}`);
+
     if (!merchantService.hasActiveSession(sessionId)) {
       return res.json({ cart: [], products: [], session: null });
     }
@@ -105,6 +117,11 @@ export function setupCartRoutes(
 
   // Cancel checkout session
   app.post('/cart/cancel', async (req, res) => {
+    console.log(`[INFO] POST ${req.originalUrl}`);
+    if (req.body && Object.keys(req.body).length > 0) {
+      console.log(`[INFO] Request body:`, JSON.stringify(req.body, null, 2));
+    }
+
     try {
       if (!merchantService.hasActiveSession(sessionId)) {
         return res.json({ message: 'No active session to cancel', session: null });
@@ -125,6 +142,11 @@ export function setupCartRoutes(
 
   // Update buyer info
   app.post('/checkout/buyer', async (req, res) => {
+    console.log(`[INFO] POST ${req.originalUrl}`);
+    if (req.body && Object.keys(req.body).length > 0) {
+      console.log(`[INFO] Request body:`, JSON.stringify(req.body, null, 2));
+    }
+
     const { buyer } = req.body;
 
     if (!buyer) {
@@ -151,6 +173,11 @@ export function setupCartRoutes(
 
   // Update shipping address
   app.post('/checkout/shipping', async (req, res) => {
+    console.log(`[INFO] POST ${req.originalUrl}`);
+    if (req.body && Object.keys(req.body).length > 0) {
+      console.log(`[INFO] Request body:`, JSON.stringify(req.body, null, 2));
+    }
+
     const { fulfillment_address } = req.body;
 
     if (!fulfillment_address) {

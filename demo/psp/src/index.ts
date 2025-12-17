@@ -20,6 +20,8 @@ app.use('/', paymentIntentRouter);
 
 // Health check endpoint
 app.get('/health', (req, res) => {
+  console.log(`[INFO] GET ${req.originalUrl}`);
+
   res.json({ status: 'ok' });
 });
 

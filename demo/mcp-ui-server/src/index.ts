@@ -3,7 +3,6 @@ import cors from 'cors';
 import { config } from 'dotenv';
 import { McpServer } from '@modelcontextprotocol/sdk/server/mcp.js';
 import { SSEServerTransport } from '@modelcontextprotocol/sdk/server/sse.js';
-import { registerBrowseCatalogTool } from './tools/browse-catalog.js';
 import { registerCollectBuyerInfoTool } from './tools/collect-buyer-info.js';
 import { registerCollectPaymentDetailsTool } from './tools/collect-payment-details.js';
 import { registerLookupItemsTool } from './tools/lookup-items.js';
@@ -73,6 +72,8 @@ setupPaymentRoutes(app, merchantService, CART_SESSION_ID);
 
 // SSE endpoint for establishing the stream
 app.get('/mcp', async (req, res) => {
+  console.log(`[INFO] GET ${req.originalUrl}`);
+
   try {
     // Create a new SSE transport for the client
     // The endpoint for POST messages is '/messages'
@@ -105,6 +106,11 @@ app.get('/mcp', async (req, res) => {
 
 // Messages endpoint for receiving client JSON-RPC requests
 app.post('/messages', async (req, res) => {
+  console.log(`[INFO] POST ${req.originalUrl}`);
+  if (req.body && Object.keys(req.body).length > 0) {
+    console.log(`[INFO] Request body:`, JSON.stringify(req.body, null, 2));
+  }
+
   // Extract session ID from URL query parameter
   const sessionId = req.query.sessionId as string | undefined;
 

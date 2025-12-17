@@ -42,6 +42,11 @@ const router = Router();
  * - 500: Internal server error
  */
 router.post('/agentic_commerce/create_and_process_payment_intent', authenticateMerchant, async (req: Request, res: Response) => {
+  console.log(`[INFO] POST ${req.originalUrl}`);
+  if (req.body && Object.keys(req.body).length > 0) {
+    console.log(`[INFO] Request body:`, JSON.stringify(req.body, null, 2));
+  }
+
   try {
     // Validate request body
     const { shared_payment_token, amount, currency, merchant_id, metadata } = req.body;
@@ -159,6 +164,8 @@ router.post('/agentic_commerce/create_and_process_payment_intent', authenticateM
  * }
  */
 router.get('/agentic_commerce/payment_intents/:id', async (req: Request, res: Response) => {
+  console.log(`[INFO] GET ${req.originalUrl}`);
+
   try {
     const { id } = req.params;
 

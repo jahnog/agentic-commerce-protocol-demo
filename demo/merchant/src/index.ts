@@ -35,6 +35,8 @@ app.use(validateContentType);
 
 // Health check endpoint (no auth required)
 app.get('/health', (_req, res) => {
+  console.log(`[INFO] GET ${_req.originalUrl}`);
+
   res.status(200).json({
     status: 'ok',
     timestamp: new Date().toISOString(),
@@ -55,18 +57,24 @@ const feedGenerator = new ProductFeedGenerator(
 
 // Product Feed endpoints (no auth required - public feeds)
 app.get('/product-feed.json', async (_req, res) => {
+  console.log(`[INFO] GET ${_req.originalUrl}`);
+
   res.setHeader('Content-Type', 'application/json');
   res.setHeader('Cache-Control', 'public, max-age=900'); // Cache for 15 mins
   res.send(await feedGenerator.generateJSON());
 });
 
 app.get('/product-feed.xml', async (_req, res) => {
+  console.log(`[INFO] GET ${_req.originalUrl}`);
+
   res.setHeader('Content-Type', 'application/xml');
   res.setHeader('Cache-Control', 'public, max-age=900');
   res.send(await feedGenerator.generateXML());
 });
 
 app.get('/product-feed.csv', async (_req, res) => {
+  console.log(`[INFO] GET ${_req.originalUrl}`);
+
   res.setHeader('Content-Type', 'text/csv');
   res.setHeader('Content-Disposition', 'attachment; filename="products.csv"');
   res.setHeader('Cache-Control', 'public, max-age=900');
@@ -74,6 +82,8 @@ app.get('/product-feed.csv', async (_req, res) => {
 });
 
 app.get('/product-feed/validate', async (_req, res) => {
+  console.log(`[INFO] GET ${_req.originalUrl}`);
+
   res.setHeader('Content-Type', 'application/json');
   res.json(await feedGenerator.validateFeed());
 });

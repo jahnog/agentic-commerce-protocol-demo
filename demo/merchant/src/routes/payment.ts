@@ -2,8 +2,17 @@
  * Payment routes - Process payments via PSP
  */
 
-import { Router, Request, Response } from 'express';
+import { Router, Request, Response, NextFunction } from 'express';
 import { PaymentService } from '../services/PaymentService';
+
+// Logging middleware for payment routes
+function logPaymentRequest(req: Request, res: Response, next: NextFunction): void {
+  console.log(`[INFO] ${req.method} ${req.originalUrl}`);
+  if (req.body && Object.keys(req.body).length > 0) {
+    console.log(`[INFO] Request body:`, JSON.stringify(req.body, null, 2));
+  }
+  next();
+}
 
 export function createPaymentRoutes(): Router {
   const router = Router();
@@ -25,7 +34,7 @@ export function createPaymentRoutes(): Router {
    *   "currency": "usd"
    * }
    */
-  router.post('/create_and_process_payment_intent', async (req: Request, res: Response) => {
+  router.post('/create_and_process_payment_intent', logPaymentRequest, async (req: Request, res: Response) => {
     try {
       const { shared_payment_token, amount, currency } = req.body;
 

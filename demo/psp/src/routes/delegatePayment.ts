@@ -7,6 +7,19 @@ import { DelegatePaymentRequest, DelegatePaymentResponse, DelegatePaymentError }
 const router = Router();
 
 router.post('/agentic_commerce/delegate_payment', async (req: Request<{}, DelegatePaymentResponse | DelegatePaymentError, DelegatePaymentRequest>, res: Response<DelegatePaymentResponse | DelegatePaymentError>) => {
+  console.log(`[INFO] POST ${req.originalUrl}`);
+  if (req.body && Object.keys(req.body).length > 0) {
+    // Sanitize sensitive payment data for logging
+    const sanitizedBody = JSON.parse(JSON.stringify(req.body));
+    if (sanitizedBody.payment_method?.number) {
+      sanitizedBody.payment_method.number = '****' + sanitizedBody.payment_method.number.slice(-4);
+    }
+    if (sanitizedBody.payment_method?.cvc) {
+      sanitizedBody.payment_method.cvc = '***';
+    }
+    console.log(`[INFO] Request body:`, JSON.stringify(sanitizedBody, null, 2));
+  }
+
   try {
     // Validate required headers
     const headerError = validateRequiredHeaders(req);

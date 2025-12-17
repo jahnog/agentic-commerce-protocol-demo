@@ -1,0 +1,20 @@
+{
+	"folders": [
+		{
+			"path": "."
+		},
+		{
+			"path": "chat-client"
+		},
+		{
+			"path": "demo/mcp-ui-server"
+		},
+		{
+			"path": "demo/merchant"
+		},
+		{
+			"path": "demo/psp"
+		}
+	],
+	"settings": {}
+}

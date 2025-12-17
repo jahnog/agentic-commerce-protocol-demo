@@ -16,6 +16,19 @@ export function setupPaymentRoutes(
 ) {
   // Process payment - handles full flow: PSP delegation -> merchant completion
   app.post('/payment/process', async (req, res) => {
+    console.log(`[INFO] POST ${req.originalUrl}`);
+    if (req.body && Object.keys(req.body).length > 0) {
+      // Sanitize sensitive payment data for logging
+      const sanitizedBody = { ...req.body };
+      if (sanitizedBody.cardNumber) {
+        sanitizedBody.cardNumber = '****' + sanitizedBody.cardNumber.slice(-4);
+      }
+      if (sanitizedBody.cvc) {
+        sanitizedBody.cvc = '***';
+      }
+      console.log(`[INFO] Request body:`, JSON.stringify(sanitizedBody, null, 2));
+    }
+
     const { cardName, cardNumber, expMonth, expYear, cvc } = req.body;
 
     if (!cardName || !cardNumber || !expMonth || !expYear || !cvc) {
